@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "sqlite3": "^5.1.7",
-    "tsc": "^2.0.4",
     "typeorm": "^0.3.20"
   }
 }
