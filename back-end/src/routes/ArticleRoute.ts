@@ -26,7 +26,8 @@ router.get("/", async (req: Request, res: Response) => {
 router.get("/:id", async (req: Request, res: Response) => {
   try {
     const articleId = req.params.id;
-    const article = await Article.findOne(articleId);
+    const article = await Article.findOne({ where: { id: articleId } });
+
     if (article) {
       res.json(article);
     } else {
@@ -52,9 +53,14 @@ router.delete("/:id", async (req: Request, res: Response) => {
 router.put("/:id", async (req: Request, res: Response) => {
   try {
     const articleId = req.params.id;
+    if (typeof articleId !== "string") {
+      throw new Error("Invalid article ID");
+    }
     const updates = req.body;
     await Article.updateArticle(articleId, updates);
-    const updatedArticle = await Article.findOne(articleId);
+    const updatedArticle = await Article.findOneOrFail({
+      where: { id: articleId },
+    });
     res.status(200).json(updatedArticle);
   } catch (error) {
     console.error("Error updating article:", error);
