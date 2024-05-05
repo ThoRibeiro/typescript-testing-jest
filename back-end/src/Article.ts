@@ -9,15 +9,15 @@ import { ArticleInOrder } from "./ArticleInOrder";
 
 const BASE_ARTICLES = [
   {
-    name: "Câble HDMI",
-    priceEurCent: 20,
-    weightG: 0.1,
+    name: "RASP PI 5 B 8GB",
+    priceEurCent: 8753,
+    weightG: 64,
   },
   {
-    name: "Cuisse de poulet",
-    priceEurCent: 10,
-    weightG: 0.15,
-    specialShippingCostEurCent: 4,
+    name: "ASR 90GA3YZZ",
+    priceEurCent: 100739,
+    weightG: 2129,
+    specialShippingCostEurCent: 50,
   },
 ];
 

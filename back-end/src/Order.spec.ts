@@ -31,18 +31,18 @@ describe("static createOrder", () => {
       expect(order.articlesInOrder).toMatchObject([
         {
           article: {
-            name: "Câble HDMI",
-            priceEurCent: 20,
-            weightG: 0.1,
+            name: "RASP PI 5 B 8GB",
+            priceEurCent: 8753,
+            weightG: 64,
           },
           quantity: 4,
         },
         {
           article: {
-            name: "Cuisse de poulet",
-            priceEurCent: 10,
-            weightG: 0.15,
-            specialShippingCostEurCent: 4,
+            name: "ASR 90GA3YZZ",
+            priceEurCent: 100739,
+            weightG: 2129,
+            specialShippingCostEurCent: 50,
           },
           quantity: 1,
         },
@@ -66,19 +66,19 @@ describe("static createOrder", () => {
       expect(articlesInOrder).toMatchObject([
         {
           article: {
-            name: "Câble HDMI",
-            priceEurCent: 20,
+            name: "RASP PI 5 B 8GB",
+            priceEurCent: 8753,
             specialShippingCostEurCent: null,
-            weightG: 0.1,
+            weightG: 64,
           },
           quantity: 4,
         },
         {
           article: {
-            name: "Cuisse de poulet",
-            priceEurCent: 10,
-            specialShippingCostEurCent: 4,
-            weightG: 0.15,
+            name: "ASR 90GA3YZZ",
+            priceEurCent: 100739,
+            specialShippingCostEurCent: 50,
+            weightG: 2129,
           },
           quantity: 1,
         },
