@@ -11,12 +11,12 @@ const BASE_ARTICLES = [
   {
     name: "Câble HDMI",
     priceEurCent: 20,
-    weightKg: 0.1,
+    weightG: 0.1,
   },
   {
     name: "Cuisse de poulet",
     priceEurCent: 10,
-    weightKg: 0.15,
+    weightG: 0.15,
     specialShippingCost: 4,
   },
 ];
@@ -33,7 +33,7 @@ export class Article extends BaseEntity {
   priceEurCent!: number;
 
   @Column({ type: "real" })
-  weightKg!: number;
+  weightG!: number;
 
   @Column({ type: "integer", nullable: true })
   specialShippingCost!: number | null;
@@ -46,7 +46,7 @@ export class Article extends BaseEntity {
       const article = new Article();
       article.name = baseArticle.name;
       article.priceEurCent = baseArticle.priceEurCent;
-      article.weightKg = baseArticle.weightKg;
+      article.weightG = baseArticle.weightG;
       article.specialShippingCost = baseArticle.specialShippingCost ?? null;
 
       // TODO: do not insert if article with name already exists
