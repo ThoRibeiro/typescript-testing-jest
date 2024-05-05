@@ -1,4 +1,3 @@
-// src/components/ListArticles.tsx
 import React from "react";
 import { ArticleProps } from "../models/article.model";
 
@@ -23,6 +22,7 @@ export const ListArticles: React.FC<ListArticlesProps> = ({
       {articles.map((article) => (
         <div
           key={article.id}
+          role="listitem"
           style={{
             display: "flex",
             flexDirection: "column",

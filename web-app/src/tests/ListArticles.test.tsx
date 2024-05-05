@@ -1,27 +1,23 @@
 import React from "react";
 import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import App from "./App";
+import { ListArticles } from "../screens/ListArticles";
 
-jest.mock("./lib/http", () => {
-  return {
-    sendGetRequest: () => {
-      return {
-        articles: [
-          { id: "1234", name: "Chaise", priceEur: 50 },
-          { id: "5678", name: "Table", priceEur: 150 },
-        ],
-      };
-    },
-  };
-});
+const articles = [
+  { id: "1234", name: "Chaise", priceEur: 50, quantity: 0, weightKg: 4 },
+  { id: "5678", name: "Table", priceEur: 150, quantity: 0, weightKg: 20 },
+];
 
-describe("App", () => {
-  it("renders loading status first and articles after fetching data", async () => {
-    render(<App />);
+const mockSetArticleQuantity = jest.fn();
 
-    const loadingElement = screen.getByText(/Chargement…/i);
-    expect(loadingElement).toBeInTheDocument();
+describe("ListArticles", () => {
+  it("renders articles", async () => {
+    render(
+      <ListArticles
+        articles={articles}
+        setArticleQuantity={mockSetArticleQuantity}
+      />
+    );
 
     let articleElements: HTMLElement[];
     await waitFor(() => {
@@ -53,7 +49,12 @@ describe("App", () => {
 
   describe("when button + is clicked", () => {
     it("increments count", async () => {
-      render(<App />);
+      render(
+        <ListArticles
+          articles={articles}
+          setArticleQuantity={mockSetArticleQuantity}
+        />
+      );
 
       let articleElements: HTMLElement[];
       await waitFor(() => {
@@ -61,7 +62,7 @@ describe("App", () => {
         const buttonPlus = within(articleElements[0]).getByText("+");
 
         buttonPlus.click();
-        expect(articleElements[0].textContent).toMatch("1");
+        expect(mockSetArticleQuantity).toHaveBeenCalledWith("1234", 1);
       });
 
       await waitFor(() => {

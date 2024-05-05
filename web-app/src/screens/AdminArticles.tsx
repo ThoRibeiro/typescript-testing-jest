@@ -38,7 +38,7 @@ export const AdminArticles: React.FC<AdminArticlesProps> = ({ articles }) => {
       const articleDataToSend = {
         id,
         name: articleName,
-        priceEur,
+        priceEur: Number(priceEur),
         weightKg,
         specialShippingCost,
       };
@@ -49,7 +49,6 @@ export const AdminArticles: React.FC<AdminArticlesProps> = ({ articles }) => {
       setEditingIndex(null);
     }
   };
-
   const handleDeleteClick = (id: string) => {
     sendDeleteRequest(`http://localhost:3000/articles/${id}`)
       .then(() => {
