@@ -42,7 +42,7 @@ describe("static createOrder", () => {
             name: "Cuisse de poulet",
             priceEurCent: 10,
             weightG: 0.15,
-            specialShippingCost: 4,
+            specialShippingCostEurCent: 4,
           },
           quantity: 1,
         },
@@ -68,7 +68,7 @@ describe("static createOrder", () => {
           article: {
             name: "Câble HDMI",
             priceEurCent: 20,
-            specialShippingCost: null,
+            specialShippingCostEurCent: null,
             weightG: 0.1,
           },
           quantity: 4,
@@ -77,7 +77,7 @@ describe("static createOrder", () => {
           article: {
             name: "Cuisse de poulet",
             priceEurCent: 10,
-            specialShippingCost: 4,
+            specialShippingCostEurCent: 4,
             weightG: 0.15,
           },
           quantity: 1,

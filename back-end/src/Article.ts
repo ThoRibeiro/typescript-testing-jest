@@ -17,7 +17,7 @@ const BASE_ARTICLES = [
     name: "Cuisse de poulet",
     priceEurCent: 10,
     weightG: 0.15,
-    specialShippingCost: 4,
+    specialShippingCostEurCent: 4,
   },
 ];
 
@@ -36,7 +36,7 @@ export class Article extends BaseEntity {
   weightG!: number;
 
   @Column({ type: "integer", nullable: true })
-  specialShippingCost!: number | null;
+  specialShippingCostEurCent!: number | null;
 
   @OneToMany(() => ArticleInOrder, (articleInOrder) => articleInOrder.article)
   ordersWithArticle!: ArticleInOrder[];
@@ -47,7 +47,7 @@ export class Article extends BaseEntity {
       article.name = baseArticle.name;
       article.priceEurCent = baseArticle.priceEurCent;
       article.weightG = baseArticle.weightG;
-      article.specialShippingCost = baseArticle.specialShippingCost ?? null;
+      article.specialShippingCostEurCent = baseArticle.specialShippingCostEurCent ?? null;
 
       // TODO: do not insert if article with name already exists
       await article.save();
