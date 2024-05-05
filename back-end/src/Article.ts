@@ -10,12 +10,12 @@ import { ArticleInOrder } from "./ArticleInOrder";
 const BASE_ARTICLES = [
   {
     name: "Câble HDMI",
-    priceEur: 20,
+    priceEurCent: 20,
     weightKg: 0.1,
   },
   {
     name: "Cuisse de poulet",
-    priceEur: 10,
+    priceEurCent: 10,
     weightKg: 0.15,
     specialShippingCost: 4,
   },
@@ -30,7 +30,7 @@ export class Article extends BaseEntity {
   name!: string;
 
   @Column({ type: "real" })
-  priceEur!: number;
+  priceEurCent!: number;
 
   @Column({ type: "real" })
   weightKg!: number;
@@ -45,7 +45,7 @@ export class Article extends BaseEntity {
     for (const baseArticle of BASE_ARTICLES) {
       const article = new Article();
       article.name = baseArticle.name;
-      article.priceEur = baseArticle.priceEur;
+      article.priceEurCent = baseArticle.priceEurCent;
       article.weightKg = baseArticle.weightKg;
       article.specialShippingCost = baseArticle.specialShippingCost ?? null;
 

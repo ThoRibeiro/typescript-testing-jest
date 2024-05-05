@@ -5,7 +5,7 @@ import { sendGetRequest } from "./lib/http";
 type Article = {
   id: string;
   name: string;
-  priceEur: number;
+  priceEurCent: number;
 };
 
 function App() {

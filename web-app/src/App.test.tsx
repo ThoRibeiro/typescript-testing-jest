@@ -8,8 +8,8 @@ jest.mock("./lib/http", () => {
     sendGetRequest: () => {
       return {
         articles: [
-          { id: "1234", name: "Chaise", priceEur: 50 },
-          { id: "5678", name: "Table", priceEur: 150 },
+          { id: "1234", name: "Chaise", priceEurCent: 50 },
+          { id: "5678", name: "Table", priceEurCent: 150 },
         ],
       };
     },

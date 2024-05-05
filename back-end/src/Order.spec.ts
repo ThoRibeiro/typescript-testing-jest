@@ -32,7 +32,7 @@ describe("static createOrder", () => {
         {
           article: {
             name: "Câble HDMI",
-            priceEur: 20,
+            priceEurCent: 20,
             weightKg: 0.1,
           },
           quantity: 4,
@@ -40,7 +40,7 @@ describe("static createOrder", () => {
         {
           article: {
             name: "Cuisse de poulet",
-            priceEur: 10,
+            priceEurCent: 10,
             weightKg: 0.15,
             specialShippingCost: 4,
           },
@@ -67,7 +67,7 @@ describe("static createOrder", () => {
         {
           article: {
             name: "Câble HDMI",
-            priceEur: 20,
+            priceEurCent: 20,
             specialShippingCost: null,
             weightKg: 0.1,
           },
@@ -76,7 +76,7 @@ describe("static createOrder", () => {
         {
           article: {
             name: "Cuisse de poulet",
-            priceEur: 10,
+            priceEurCent: 10,
             specialShippingCost: 4,
             weightKg: 0.15,
           },

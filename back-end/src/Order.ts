@@ -72,7 +72,7 @@ export class Order extends BaseEntity {
 
   private getTotalPrice(): number {
     return this.articlesInOrder.reduce(
-      (total, { article, quantity }) => total + article.priceEur * quantity,
+      (total, { article, quantity }) => total + article.priceEurCent * quantity,
       0
     );
   }
@@ -121,7 +121,7 @@ export class Order extends BaseEntity {
       return {
         articles: order.articlesInOrder.map((item) => ({
           name: item.article.name,
-          unitPrice: item.article.priceEur,
+          unitPrice: item.article.priceEurCent,
           quantity: item.quantity,
         })),
         totalWithoutShipping,
