@@ -1,7 +1,8 @@
 import express from "express";
 import { getNewDataSource } from "./config/database";
-import {Article} from "./Article";
+import { Article } from "./Article";
 import orderRoute from "./routes/OrderRoute";
+import articleRoute from "./routes/ArticleRoute";
 
 async function main() {
   const app = express();
@@ -12,6 +13,7 @@ async function main() {
 
   // Ajoute des routes
   app.use("/orders", orderRoute);
+  app.use("/articles", articleRoute);
 
   await Article.createBaseArticles();
   console.log("Successfully created articles.");
