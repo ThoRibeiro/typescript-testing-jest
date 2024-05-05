@@ -10,6 +10,8 @@ import { sendEmail } from "./lib/email";
 import { Article } from "./Article";
 import { ArticleInOrder } from "./ArticleInOrder";
 
+const FREE_SHIPPING_THRESHOLD = 10000;
+
 @Entity()
 export class Order extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
@@ -78,7 +80,7 @@ export class Order extends BaseEntity {
   }
 
   getShippingCost(): number {
-    return this.getTotalPrice() >= 100
+    return this.getTotalPrice() >= FREE_SHIPPING_THRESHOLD
       ? 0
       : this.articlesInOrder.reduce(
           (total, { article, quantity }) =>
