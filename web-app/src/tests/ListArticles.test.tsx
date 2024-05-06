@@ -11,11 +11,12 @@ const articles = [
 const mockSetArticleQuantity = jest.fn();
 
 describe("ListArticles", () => {
-  it("renders articles", async () => {
+  it("affiches les articles", async () => {
     render(
       <ListArticles
         articles={articles}
         setArticleQuantity={mockSetArticleQuantity}
+        orderId={""}
       />
     );
 
@@ -47,12 +48,13 @@ describe("ListArticles", () => {
     });
   });
 
-  describe("when button + is clicked", () => {
+  describe("button + click", () => {
     it("increments count", async () => {
       render(
         <ListArticles
           articles={articles}
           setArticleQuantity={mockSetArticleQuantity}
+          orderId={""}
         />
       );
 

@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ArticleProps } from "../models/article.model";
+import { sendPostRequest, sendPutRequest, sendGetRequest } from "../lib/http";
 
 interface ListArticlesProps {
   articles: (ArticleProps & { quantity: number })[];
   setArticleQuantity: (id: string, quantity: number) => void;
+  orderId: string;
 }
 
 export const ListArticles: React.FC<ListArticlesProps> = ({
   articles,
   setArticleQuantity,
+  orderId,
 }) => {
+  const handleQuantityChange = (id: string, quantity: number) => {
+    setArticleQuantity(id, quantity);
+
+    if (orderId) {
+      sendPutRequest(`http://localhost:3000/orders/${orderId}`, {
+        articleId: id,
+        quantity,
+      }).catch((error) => {
+        console.error("Error:", error);
+      });
+    }
+  };
   return (
     <div
       style={{
@@ -44,7 +59,7 @@ export const ListArticles: React.FC<ListArticlesProps> = ({
           >
             <button
               onClick={() => {
-                setArticleQuantity(article.id, article.quantity - 1);
+                handleQuantityChange(article.id, article.quantity - 1);
               }}
             >
               -
@@ -52,7 +67,7 @@ export const ListArticles: React.FC<ListArticlesProps> = ({
             {article.quantity}
             <button
               onClick={() => {
-                setArticleQuantity(article.id, article.quantity + 1);
+                handleQuantityChange(article.id, article.quantity + 1);
               }}
             >
               +

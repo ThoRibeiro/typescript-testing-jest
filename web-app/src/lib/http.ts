@@ -12,7 +12,7 @@ export function sendGetRequest(url: string): Promise<Record<string, unknown>> {
 
 export function sendPostRequest(
   url: string,
-  body: Record<string, unknown>
+  body: Record<string, unknown> | Record<string, unknown>[]
 ): Promise<Record<string, unknown>> {
   return fetch(url, {
     method: "POST",
