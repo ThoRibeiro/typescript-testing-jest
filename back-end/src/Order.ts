@@ -31,13 +31,13 @@ export class Order extends BaseEntity {
   @Column({ default: false })
   submitted!: boolean;
 
-  @Column({ type: "real", nullable: true })
+  @Column({ type: "integer", nullable: true })
   totalWithoutShipping?: number;
 
-  @Column({ type: "real", nullable: true })
+  @Column({ type: "integer", nullable: true })
   shipping?: number;
 
-  @Column({ type: "real", nullable: true })
+  @Column({ type: "integer", nullable: true })
   totalWithShipping?: number;
 
   @Column({ default: "Not Submitted" })
