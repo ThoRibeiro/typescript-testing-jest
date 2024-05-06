@@ -1,8 +1,8 @@
 export interface ArticleProps {
   id: string;
   name: string;
-  priceEur: number;
-  weightKg: number;
-  specialShippingCost?: number;
+  priceEurCent: number;
+  weightG: number;
+  specialShippingCostEurCent?: number;
   quantity: number;
 }

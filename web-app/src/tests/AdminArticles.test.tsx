@@ -7,8 +7,8 @@ import fetchMock from "jest-fetch-mock";
 fetchMock.enableMocks();
 
 const articles = [
-  { id: "1234", name: "Chaise", priceEur: 50, weightKg: 4 },
-  { id: "5678", name: "Table", priceEur: 150, weightKg: 20 },
+  { id: "1234", name: "Chaise", priceEurCent: 5000, weightG: 4000 },
+  { id: "5678", name: "Table", priceEurCent: 15000, weightG: 20000 },
 ];
 
 describe("AdminArticles", () => {
@@ -26,10 +26,10 @@ describe("AdminArticles", () => {
     articlesWithQuantity.forEach((article) => {
       expect(screen.getByDisplayValue(article.name)).toBeInTheDocument();
       expect(
-        screen.getByDisplayValue(article.priceEur.toString())
+        screen.getByDisplayValue(article.priceEurCent.toString())
       ).toBeInTheDocument();
       expect(
-        screen.getByDisplayValue(article.weightKg.toString())
+        screen.getByDisplayValue(article.weightG.toString())
       ).toBeInTheDocument();
     });
   });
@@ -77,12 +77,12 @@ describe("AdminArticles", () => {
     }));
     render(<AdminArticles articles={articlesWithQuantity} />);
     const priceInput = screen.getByDisplayValue(
-      articles[0].priceEur.toString()
+      articles[0].priceEurCent.toString()
     );
 
     await act(async () => {
       await userEvent.clear(priceInput);
-      await userEvent.type(priceInput, "60");
+      await userEvent.type(priceInput, "6000");
 
       const firstRow = screen.getAllByRole("row")[1];
       const validButton = within(firstRow).getByText("Valid");
@@ -98,11 +98,11 @@ describe("AdminArticles", () => {
         },
         body: JSON.stringify({
           ...articles[0],
-          priceEur: Number("60"),
+          priceEurCent: Number("6000"),
         }),
       }
     );
-    expect(screen.getByDisplayValue("60")).toBeInTheDocument();
+    expect(screen.getByDisplayValue("6000")).toBeInTheDocument();
   });
   it("supprimer un article", async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ success: true }));

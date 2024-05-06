@@ -12,6 +12,9 @@ import { sendEmail } from "./lib/email";
 import { Article } from "./Article";
 import { ArticleInOrder } from "./ArticleInOrder";
 
+const LIMIT_BEFORE_OFFERING_SHIPPING_COSTS = 10000;
+const TAX_PER_GRAM = 1
+
 @Entity()
 export class Order extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
@@ -28,13 +31,13 @@ export class Order extends BaseEntity {
   @Column({ default: false })
   submitted!: boolean;
 
-  @Column({ type: "real", nullable: true })
+  @Column({ type: "integer", nullable: true })
   totalWithoutShipping?: number;
 
-  @Column({ type: "real", nullable: true })
+  @Column({ type: "integer", nullable: true })
   shipping?: number;
 
-  @Column({ type: "real", nullable: true })
+  @Column({ type: "integer", nullable: true })
   totalWithShipping?: number;
 
   @Column({ default: "Not Submitted" })
@@ -74,18 +77,18 @@ export class Order extends BaseEntity {
 
   private getTotalPrice(): number {
     return this.articlesInOrder.reduce(
-      (total, { article, quantity }) => total + article.priceEur * quantity,
+      (total, { article, quantity }) => total + article.priceEurCent * quantity,
       0
     );
   }
 
   getShippingCost(): number {
-    return this.getTotalPrice() >= 100
+    return this.getTotalPrice() >= LIMIT_BEFORE_OFFERING_SHIPPING_COSTS
       ? 0
       : this.articlesInOrder.reduce(
           (total, { article, quantity }) =>
             total +
-            (article.specialShippingCost || article.weightKg * 10) * quantity,
+            (article.specialShippingCostEurCent || article.weightG * TAX_PER_GRAM) * quantity,
           0
         );
   }
@@ -123,7 +126,7 @@ export class Order extends BaseEntity {
       return {
         articles: order.articlesInOrder.map((item) => ({
           name: item.article.name,
-          unitPrice: item.article.priceEur,
+          unitPrice: item.article.priceEurCent,
           quantity: item.quantity,
         })),
         totalWithoutShipping,
