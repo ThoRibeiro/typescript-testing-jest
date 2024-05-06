@@ -6,6 +6,7 @@ import { sendGetRequest } from "./lib/http";
 import { ArticleProps } from "./models/article.model";
 import { ListArticles } from "./screens/ListArticles";
 import { AdminArticles } from "./screens/AdminArticles";
+import NavigationBar from "./components/navigation";
 
 function App() {
   const [articles, setArticles] = useState<
@@ -47,28 +48,34 @@ function App() {
     <Router>
       <div className="App">
         <header className="App-header">
-          <Routes>
-            <Route
-              path="/admin/articles"
-              element={
-                articles ? <AdminArticles articles={articles} /> : "Chargement…"
-              }
-            />
+          <NavigationBar>
+            <Routes>
+              <Route
+                path="/admin/articles"
+                element={
+                  articles ? (
+                    <AdminArticles articles={articles} />
+                  ) : (
+                    "Chargement…"
+                  )
+                }
+              />
 
-            <Route
-              path="/"
-              element={
-                articles ? (
-                  <ListArticles
-                    articles={articles}
-                    setArticleQuantity={setArticleQuantity}
-                  />
-                ) : (
-                  "Chargement…"
-                )
-              }
-            />
-          </Routes>
+              <Route
+                path="/"
+                element={
+                  articles ? (
+                    <ListArticles
+                      articles={articles}
+                      setArticleQuantity={setArticleQuantity}
+                    />
+                  ) : (
+                    "Chargement…"
+                  )
+                }
+              />
+            </Routes>
+          </NavigationBar>
         </header>
       </div>
     </Router>

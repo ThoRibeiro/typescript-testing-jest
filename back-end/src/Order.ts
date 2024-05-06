@@ -1,7 +1,9 @@
 import {
   BaseEntity,
   Column,
-  Entity, FindOneOptions, getConnection,
+  Entity,
+  FindOneOptions,
+  getConnection,
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
@@ -15,7 +17,7 @@ export class Order extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 
-  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  @Column({ type: "datetime", default: () => "CURRENT_TIMESTAMP" })
   createdAt!: Date;
 
   @OneToMany(() => ArticleInOrder, (articleInOrder) => articleInOrder.order, {
@@ -107,7 +109,7 @@ export class Order extends BaseEntity {
     try {
       const options: FindOneOptions<Order> = {
         where: { id },
-        relations: ["articlesInOrder"]
+        relations: ["articlesInOrder"],
       };
 
       const order = await Order.findOneOrFail(options);
@@ -134,7 +136,9 @@ export class Order extends BaseEntity {
     }
   }
 
-  static async getOrderStats(): Promise<{ month: string; totalPrice: number }[]> {
+  static async getOrderStats(): Promise<
+    { month: string; totalPrice: number }[]
+  > {
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth() + 1;
     const currentYear = currentDate.getFullYear();
@@ -148,15 +152,15 @@ export class Order extends BaseEntity {
       const lastDayOfMonth = new Date(year, month, 0, 23, 59, 59, 999);
 
       const result = await this.createQueryBuilder("order")
-          .select("SUM(order.totalWithShipping)", "totalPrice")
-          .where("order.createdAt BETWEEN :firstDayOfMonth AND :lastDayOfMonth", {
-            firstDayOfMonth: firstDayOfMonth.toISOString(),
-            lastDayOfMonth: lastDayOfMonth.toISOString(),
-          })
-          .getRawOne();
+        .select("SUM(order.totalWithShipping)", "totalPrice")
+        .where("order.createdAt BETWEEN :firstDayOfMonth AND :lastDayOfMonth", {
+          firstDayOfMonth: firstDayOfMonth.toISOString(),
+          lastDayOfMonth: lastDayOfMonth.toISOString(),
+        })
+        .getRawOne();
 
       monthlyStats.push({
-        month: `${year}-${month < 10 ? '0' + month : month}`,
+        month: `${year}-${month < 10 ? "0" + month : month}`,
         totalPrice: result.totalPrice || 0,
       });
     }
@@ -164,9 +168,15 @@ export class Order extends BaseEntity {
     return monthlyStats;
   }
 
-  static async updateOrder(orderId: string, updates: Partial<Order>): Promise<Order> {
+  static async updateOrder(
+    orderId: string,
+    updates: Partial<Order>
+  ): Promise<Order> {
     try {
-      const order = await Order.findOneOrFail({ where: { id: orderId }, relations: ["articlesInOrder"] });
+      const order = await Order.findOneOrFail({
+        where: { id: orderId },
+        relations: ["articlesInOrder"],
+      });
       Object.assign(order, updates);
       await order.save();
       return order;

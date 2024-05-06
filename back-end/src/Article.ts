@@ -19,6 +19,11 @@ const BASE_ARTICLES = [
     weightKg: 0.15,
     specialShippingCost: 4,
   },
+  {
+    name: "Chaise",
+    priceEur: 50,
+    weightKg: 5,
+  },
 ];
 
 @Entity()

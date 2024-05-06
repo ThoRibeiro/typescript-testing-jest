@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { getNewDataSource } from "./config/database";
 import { Article } from "./Article";
 import orderRoute from "./routes/OrderRoute";
@@ -6,6 +7,8 @@ import articleRoute from "./routes/ArticleRoute";
 
 async function main() {
   const app = express();
+  app.use(cors());
+  app.use(express.json());
 
   // Connexion à la base de données
   const dataSource = await getNewDataSource("./sqlite.db");
