@@ -7,8 +7,8 @@ import fetchMock from "jest-fetch-mock";
 fetchMock.enableMocks();
 
 const articles = [
-  { id: "1234", name: "Chaise", priceEurCent: 5000, weightKg: 4 },
-  { id: "5678", name: "Table", priceEurCent: 15000, weightKg: 20 },
+  { id: "1234", name: "Chaise", priceEurCent: 5000, weightG: 4000 },
+  { id: "5678", name: "Table", priceEurCent: 15000, weightG: 20000 },
 ];
 
 describe("AdminArticles", () => {
@@ -29,7 +29,7 @@ describe("AdminArticles", () => {
         screen.getByDisplayValue(article.priceEurCent.toString())
       ).toBeInTheDocument();
       expect(
-        screen.getByDisplayValue(article.weightKg.toString())
+        screen.getByDisplayValue(article.weightG.toString())
       ).toBeInTheDocument();
     });
   });

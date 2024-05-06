@@ -13,7 +13,7 @@ import { Article } from "./Article";
 import { ArticleInOrder } from "./ArticleInOrder";
 
 const LIMIT_BEFORE_OFFERING_SHIPPING_COSTS = 10000;
-const TAX_PER_KILO = 1000
+const TAX_PER_GRAM = 1
 
 @Entity()
 export class Order extends BaseEntity {
@@ -88,7 +88,7 @@ export class Order extends BaseEntity {
       : this.articlesInOrder.reduce(
           (total, { article, quantity }) =>
             total +
-            (article.specialShippingCostEurCent || article.weightKg * TAX_PER_KILO) * quantity,
+            (article.specialShippingCostEurCent || article.weightG * TAX_PER_GRAM) * quantity,
           0
         );
   }

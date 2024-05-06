@@ -32,14 +32,14 @@ export const AdminArticles: React.FC<AdminArticlesProps> = ({ articles }) => {
         id,
         name: articleName,
         priceEurCent,
-        weightKg,
+        weightG,
         specialShippingCostEurCent,
       } = article;
       const articleDataToSend = {
         id,
         name: articleName,
         priceEurCent: Number(priceEurCent),
-        weightKg,
+        weightG,
         specialShippingCostEurCent,
       };
       sendPutRequest(
@@ -102,8 +102,8 @@ export const AdminArticles: React.FC<AdminArticlesProps> = ({ articles }) => {
             <td>
               <input
                 type="number"
-                name="weightKg"
-                value={article.weightKg}
+                name="weightG"
+                value={article.weightG}
                 style={{
                   padding: "10px 10px",
                   borderRadius: "4px",
