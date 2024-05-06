@@ -82,7 +82,7 @@ describe("AdminArticles", () => {
 
     await act(async () => {
       await userEvent.clear(priceInput);
-      await userEvent.type(priceInput, "60");
+      await userEvent.type(priceInput, "6000");
 
       const firstRow = screen.getAllByRole("row")[1];
       const validButton = within(firstRow).getByText("Valid");
@@ -102,7 +102,7 @@ describe("AdminArticles", () => {
         }),
       }
     );
-    expect(screen.getByDisplayValue("60")).toBeInTheDocument();
+    expect(screen.getByDisplayValue("6000")).toBeInTheDocument();
   });
   it("supprimer un article", async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ success: true }));
