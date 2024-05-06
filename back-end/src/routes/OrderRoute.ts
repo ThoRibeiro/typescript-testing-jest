@@ -24,6 +24,16 @@ router.get("/stats", async (req: Request, res: Response) => {
   }
 });
 
+router.post("/", async (req: Request, res: Response) => {
+  try {
+    const order = await Order.createOrderVoid();
+    res.status(201).json(order);
+  } catch (error) {
+    console.error("Error creating order:", error);
+    res.status(500).json({ message: "Failed to create order" });
+  }
+});
+
 router.delete("/:id", async (req: Request, res: Response) => {
   try {
     const orderId = req.params.id;
@@ -39,7 +49,7 @@ router.delete("/:id", async (req: Request, res: Response) => {
   }
 });
 
-router.put("/orders/:id", async (req: Request, res: Response) => {
+router.put("/:id", async (req: Request, res: Response) => {
   try {
     const orderId = req.params.id;
     const updates = req.body;

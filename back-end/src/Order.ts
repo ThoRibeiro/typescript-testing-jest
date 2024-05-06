@@ -53,7 +53,11 @@ export class Order extends BaseEntity {
       }
     }
 
-    const order = Order.create();
+    const order = Order.create({
+      totalWithoutShipping: 0,
+      shipping: 0,
+      totalWithShipping: 0,
+    });
     await order.save();
 
     for (const { articleId, quantity } of articlesInOrder) {
@@ -66,6 +70,17 @@ export class Order extends BaseEntity {
     }
 
     await order.reload();
+    return order;
+  }
+
+  static async createOrderVoid(): Promise<Order> {
+    const order = Order.create({
+      totalWithoutShipping: 0,
+      shipping: 0,
+      totalWithShipping: 0,
+    });
+    await order.save();
+
     return order;
   }
 
@@ -173,15 +188,34 @@ export class Order extends BaseEntity {
 
   static async updateOrder(
     orderId: string,
-    updates: Partial<Order>
+    updates: Partial<Order>,
+    articlesInOrder: { articleId: string; quantity: number }[] = []
   ): Promise<Order> {
     try {
-      const order = await Order.findOneOrFail({
+      const order = await Order.findOne({
         where: { id: orderId },
         relations: ["articlesInOrder"],
       });
+
+      if (!order) {
+        throw new Error(`Order with ID ${orderId} not found.`);
+      }
+
+      await ArticleInOrder.delete({ order: order });
+
+      for (const { articleId, quantity } of articlesInOrder) {
+        const article = await Article.findOneOrFail({
+          where: { id: articleId },
+        });
+        const articleInOrder = ArticleInOrder.create();
+        articleInOrder.order = order;
+        articleInOrder.article = article;
+        articleInOrder.quantity = quantity;
+        await articleInOrder.save();
+      }
       Object.assign(order, updates);
       await order.save();
+
       return order;
     } catch (error) {
       throw new Error(`Error updating order: ${error}`);
