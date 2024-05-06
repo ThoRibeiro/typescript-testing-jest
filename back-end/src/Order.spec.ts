@@ -32,7 +32,7 @@ describe("static createOrder", () => {
         {
           article: {
             name: "Câble HDMI",
-            priceEur: 20,
+            priceEurCent: 2000,
             weightKg: 0.1,
           },
           quantity: 4,
@@ -40,9 +40,9 @@ describe("static createOrder", () => {
         {
           article: {
             name: "Cuisse de poulet",
-            priceEur: 10,
+            priceEurCent: 1000,
             weightKg: 0.15,
-            specialShippingCost: 4,
+            specialShippingCostEurCent: 400,
           },
           quantity: 1,
         },
@@ -67,8 +67,8 @@ describe("static createOrder", () => {
         {
           article: {
             name: "Câble HDMI",
-            priceEur: 20,
-            specialShippingCost: null,
+            priceEurCent: 2000,
+            specialShippingCostEurCent: null,
             weightKg: 0.1,
           },
           quantity: 4,
@@ -76,8 +76,8 @@ describe("static createOrder", () => {
         {
           article: {
             name: "Cuisse de poulet",
-            priceEur: 10,
-            specialShippingCost: 4,
+            priceEurCent: 1000,
+            specialShippingCostEurCent: 400,
             weightKg: 0.15,
           },
           quantity: 1,
@@ -136,7 +136,7 @@ describe("getShippingCost", () => {
         { articleId: articles[1].id, quantity: 3 },
       ]);
 
-      expect(order.getShippingCost()).toEqual(2 * 1 + 3 * 4); // 14
+      expect(order.getShippingCost()).toEqual(200 * 1 + 300 * 4); // 1400
     });
   });
 });
@@ -150,9 +150,9 @@ describe("getOrderCost", () => {
     ]);
 
     expect(order.getOrderCost()).toEqual({
-      totalWithoutShipping: 70,
-      shipping: 14,
-      totalWithShipping: 84,
+      totalWithoutShipping: 7000,
+      shipping: 1400,
+      totalWithShipping: 8400,
     });
   });
 });

@@ -4,8 +4,8 @@ import userEvent from "@testing-library/user-event";
 import { ListArticles } from "../screens/ListArticles";
 
 const articles = [
-  { id: "1234", name: "Chaise", priceEur: 50, quantity: 0, weightKg: 4 },
-  { id: "5678", name: "Table", priceEur: 150, quantity: 0, weightKg: 20 },
+  { id: "1234", name: "Chaise", priceEurCent: 5000, quantity: 0, weightKg: 4 },
+  { id: "5678", name: "Table", priceEurCent: 15000, quantity: 0, weightKg: 20 },
 ];
 
 const mockSetArticleQuantity = jest.fn();

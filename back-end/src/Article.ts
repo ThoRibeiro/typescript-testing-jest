@@ -10,18 +10,18 @@ import { ArticleInOrder } from "./ArticleInOrder";
 const BASE_ARTICLES = [
   {
     name: "Câble HDMI",
-    priceEur: 20,
+    priceEurCent: 2000,
     weightKg: 0.1,
   },
   {
     name: "Cuisse de poulet",
-    priceEur: 10,
+    priceEurCent: 1000,
     weightKg: 0.15,
-    specialShippingCost: 4,
+    specialShippingCostEurCent: 400,
   },
   {
     name: "Chaise",
-    priceEur: 50,
+    priceEurCent: 5000,
     weightKg: 5,
   },
 ];
@@ -35,13 +35,13 @@ export class Article extends BaseEntity {
   name!: string;
 
   @Column({ type: "real" })
-  priceEur!: number;
+  priceEurCent!: number;
 
   @Column({ type: "real" })
   weightKg!: number;
 
   @Column({ type: "integer", nullable: true })
-  specialShippingCost!: number | null;
+  specialShippingCostEurCent!: number | null;
 
   @OneToMany(() => ArticleInOrder, (articleInOrder) => articleInOrder.article)
   ordersWithArticle!: ArticleInOrder[];
@@ -54,9 +54,9 @@ export class Article extends BaseEntity {
       if (!existingArticle) {
         const article = new Article();
         article.name = baseArticle.name;
-        article.priceEur = baseArticle.priceEur;
+        article.priceEurCent = baseArticle.priceEurCent;
         article.weightKg = baseArticle.weightKg;
-        article.specialShippingCost = baseArticle.specialShippingCost ?? null;
+        article.specialShippingCostEurCent = baseArticle.specialShippingCostEurCent ?? null;
         await article.save();
       }
     }
@@ -64,9 +64,9 @@ export class Article extends BaseEntity {
 
   static async createArticle(articleData: {
     name: string;
-    priceEur: number;
+    priceEurCent: number;
     weightKg: number;
-    specialShippingCost?: number;
+    specialShippingCostEurCent?: number;
   }) {
     const existingArticle = await this.findOne({
       where: { name: articleData.name },
@@ -76,9 +76,9 @@ export class Article extends BaseEntity {
     }
     const article = new Article();
     article.name = articleData.name;
-    article.priceEur = articleData.priceEur;
+    article.priceEurCent = articleData.priceEurCent;
     article.weightKg = articleData.weightKg;
-    article.specialShippingCost = articleData.specialShippingCost ?? null;
+    article.specialShippingCostEurCent = articleData.specialShippingCostEurCent ?? null;
     await article.save();
     return article;
   }
@@ -95,9 +95,9 @@ export class Article extends BaseEntity {
     id: string,
     articleData: Partial<{
       name: string;
-      priceEur: number;
+      priceEurCent: number;
       weightKg: number;
-      specialShippingCost?: number;
+      specialShippingCostEurCent?: number;
     }>
   ) {
     await this.update(id, articleData);

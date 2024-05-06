@@ -31,16 +31,16 @@ export const AdminArticles: React.FC<AdminArticlesProps> = ({ articles }) => {
       const {
         id,
         name: articleName,
-        priceEur,
+        priceEurCent,
         weightKg,
-        specialShippingCost,
+        specialShippingCostEurCent,
       } = article;
       const articleDataToSend = {
         id,
         name: articleName,
-        priceEur: Number(priceEur),
+        priceEurCent: Number(priceEurCent),
         weightKg,
-        specialShippingCost,
+        specialShippingCostEurCent,
       };
       sendPutRequest(
         `http://localhost:3000/articles/${article.id}`,
@@ -90,8 +90,8 @@ export const AdminArticles: React.FC<AdminArticlesProps> = ({ articles }) => {
             <td>
               <input
                 type="number"
-                name="priceEur"
-                value={article.priceEur}
+                name="priceEurCent"
+                value={article.priceEurCent}
                 style={{
                   padding: "10px 10px",
                   borderRadius: "4px",
@@ -114,8 +114,8 @@ export const AdminArticles: React.FC<AdminArticlesProps> = ({ articles }) => {
             <td>
               <input
                 type="number"
-                name="specialShippingCost"
-                value={article.specialShippingCost || ""}
+                name="specialShippingCostEurCent"
+                value={article.specialShippingCostEurCent || ""}
                 style={{
                   padding: "10px 10px",
                   borderRadius: "4px",
